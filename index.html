@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Factorial Calculator</title>
+  <title>Random Password Generator</title>
 </head>
 <body>
 
-  <h2>Factorial Calculator</h2>
-  <input type="number" id="numberInput" placeholder="Enter a number">
-  <button onclick="calculateFactorial()">Calculate</button>
+  <h2>Random Password Generator</h2>
+  
+  <label for="length">Password Length:</label>
+  <input type="number" id="length" value="12" min="4" max="32">
+  <button onclick="generatePassword()">Generate</button>
 
-  <p id="result"></p>
+  <p><strong>Password:</strong> <span id="passwordOutput"></span></p>
 
   <script>
-    // JavaScript function to calculate factorial
-    function factorial(n) {
-      if (n === 0 || n === 1) return 1;
-      return n * factorial(n - 1);
-    }
+    function generatePassword() {
+      const length = parseInt(document.getElementById("length").value);
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?';
+      let password = '';
 
-    // Function to read input and show result
-    function calculateFactorial() {
-      const input = document.getElementById("numberInput").value;
-      const num = parseInt(input);
-
-      if (isNaN(num) || num < 0) {
-        document.getElementById("result").innerText = "Please enter a non-negative number.";
+      if (isNaN(length) || length < 4) {
+        document.getElementById("passwordOutput").innerText = "Please enter a length of at least 4.";
         return;
       }
 
-      const result = factorial(num);
-      document.getElementById("result").innerText = `Factorial of ${num} is ${result}`;
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        password += characters[randomIndex];
+      }
+
+      document.getElementById("passwordOutput").innerText = password;
     }
   </script>
 
